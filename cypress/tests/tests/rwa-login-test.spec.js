@@ -12,8 +12,8 @@ describe("Main test Real world app", () => {
     cy.get('[class="MuiTypography-root MuiTypography-h5"]')
       .should("exist")
       .and("contain", "Sign in");
-    cy.get('[id="username"]');
-    cy.get('[id="password"]');
+    cy.get('[id="username"]').should("be.visible");
+    cy.get('[id="password"]').should("be.visible");
     cy.get('[class="PrivateSwitchBase-input-14"]').should("not.be.checked");
     cy.get('[class="MuiButton-label"]').should("be.visible");
     cy.get('[data-test="signup"]').should("be.visible").click();

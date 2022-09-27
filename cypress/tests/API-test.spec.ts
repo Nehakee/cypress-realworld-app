@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
 
 import { url } from "inspector";
-const mainUser = {
+const firstUser = {
   firstName: "Katharina",
   lastName: "Bernier",
   userName: "Katharina_Bernier",
   password: "s3cret",
 };
-const testUser = {
+const secondUser = {
   firstName: "Alexi",
   lastName: "Laiho",
   userName: "Alexi1",
@@ -20,8 +20,8 @@ describe("API TEST", () => {
       method: "POST",
       url: "http://localhost:3001/login",
       body: {
-        username: mainUser.userName,
-        password: mainUser.password,
+        username: firstUser.userName,
+        password: firstUser.password,
         type: "LOGIN",
       },
     }).then((request) => {
@@ -34,8 +34,8 @@ describe("API TEST", () => {
       url: "http://localhost:3001/login",
       failOnStatusCode: false,
       body: {
-        username: testUser.userName,
-        password: testUser.password,
+        username: secondUser.userName,
+        password: secondUser.password,
         type: "login",
       },
     }).then((request) => {
@@ -47,8 +47,8 @@ describe("API TEST", () => {
       method: "OPTIONS",
       url: "http://localhost:3001/login",
       body: {
-        username: mainUser.userName,
-        password: mainUser.password,
+        username: firstUser.userName,
+        password: firstUser.password,
         type: "login",
       },
     }).then((request) => {

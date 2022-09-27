@@ -1,4 +1,4 @@
-const mainUser = {
+const firstUser = {
   firstName: "Katharina",
   lastName: "Bernier",
   userName: "Katharina_Bernier",
@@ -11,8 +11,8 @@ describe("API TEST", () => {
       method: "POST",
       url: "http://localhost:3001/login",
       body: {
-        username: mainUser.userName,
-        password: mainUser.password,
+        username: firstUser.userName,
+        password: firstUser.password,
         type: "LOGIN",
       },
     }).then((request) => {

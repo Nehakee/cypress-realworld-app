@@ -11,7 +11,7 @@
       "phoneNumber": "625-316-9882",
       "avatar": "https://cypress-realworld-app-svgs.s3.amazonaws.com/t45AiwidW.svg",
       "defaultPrivacyLevel": "public",
-      "balance": 168137,
+      "balance": 68137,
       "createdAt": "2019-08-27T23:47:05.637Z",
       "modifiedAt": "2020-05-21T11:02:22.857Z"
     },
@@ -26,7 +26,7 @@
       "phoneNumber": "537-041-4355",
       "avatar": "https://cypress-realworld-app-svgs.s3.amazonaws.com/qywYp6hS0U.svg",
       "defaultPrivacyLevel": "private",
-      "balance": 101805,
+      "balance": 201805,
       "createdAt": "2019-09-09T13:48:45.489Z",
       "modifiedAt": "2020-05-21T02:34:01.483Z"
     },
@@ -74,6 +74,61 @@
       "balance": 75369,
       "createdAt": "2020-02-11T21:26:46.510Z",
       "modifiedAt": "2020-05-21T15:15:33.944Z"
+    },
+    {
+      "id": "rKtgwwK5B",
+      "uuid": "0fea9b35-a884-4231-8ad4-4dd2a256791e",
+      "firstName": "Abel",
+      "lastName": "Fernandez",
+      "username": "Abel1",
+      "password": "$2a$10$mnTVdUm/7trbuIzUG6PJTenpL2QH68OA9CdiNjAmf998xbepX6dG6",
+      "balance": 0,
+      "createdAt": "2022-12-09T23:05:16.037Z",
+      "modifiedAt": "2022-12-09T23:05:16.037Z"
+    },
+    {
+      "id": "1_L3MwvmI",
+      "uuid": "ea35c1e2-e42a-48a1-8009-6f1bb12eeddf",
+      "firstName": "Abel",
+      "lastName": "Fernandez",
+      "username": "Abel1",
+      "password": "$2a$10$B5XTYhEQVyNmuFLd.zyDm.CaxGgdSog4plLRUzh.S/GQQUrppWPG2",
+      "balance": 0,
+      "createdAt": "2022-12-09T23:05:36.047Z",
+      "modifiedAt": "2022-12-09T23:05:36.047Z"
+    },
+    {
+      "id": "jgHHSxC1q",
+      "uuid": "d15f2a87-8418-4a09-b813-699c6345f9a7",
+      "firstName": "Abel",
+      "lastName": "Fernandez",
+      "username": "Abel1",
+      "password": "$2a$10$Baeo2CJCatV7pz870u/85eS1NmKI2GwXRReTprepr/CxwzS4O7ir2",
+      "balance": 0,
+      "createdAt": "2022-12-09T23:05:39.594Z",
+      "modifiedAt": "2022-12-09T23:05:39.594Z"
+    },
+    {
+      "id": "kpsSROd1a",
+      "uuid": "9674b54d-8f6d-4231-8db4-161376c59ced",
+      "firstName": "Abel",
+      "lastName": "Fernandez",
+      "username": "Abel1",
+      "password": "$2a$10$YcdmVunIzDNpmeHcAiqnbOq/6OLpzf65UqAkXZTUrjC70wog9nRBS",
+      "balance": 0,
+      "createdAt": "2022-12-09T23:06:07.937Z",
+      "modifiedAt": "2022-12-09T23:06:07.937Z"
+    },
+    {
+      "id": "_frih6bo1",
+      "uuid": "0fc9481a-37bb-403a-95b3-e1a2a37d0ab2",
+      "firstName": "Abel",
+      "lastName": "Fernandez",
+      "username": "Abel1",
+      "password": "$2a$10$Hd/Fm1QDsD9OgAdC/reHb.tfcofUIljXI9KphyP.9sszOXgXdv/Im",
+      "balance": 0,
+      "createdAt": "2022-12-09T23:08:13.681Z",
+      "modifiedAt": "2022-12-09T23:08:13.681Z"
     }
   ],
   "contacts": [
@@ -253,6 +308,17 @@
       "isDeleted": false,
       "createdAt": "2019-09-30T14:20:07.043Z",
       "modifiedAt": "2020-05-21T22:40:28.910Z"
+    },
+    {
+      "id": "V2i0sfxK7",
+      "uuid": "00217002-e1bb-4e84-9beb-f68e2b4f7a51",
+      "userId": "rKtgwwK5B",
+      "bankName": "Mbank",
+      "accountNumber": "000012345678",
+      "routingNumber": "123456789",
+      "isDeleted": false,
+      "createdAt": "2022-12-09T23:08:21.140Z",
+      "modifiedAt": "2022-12-09T23:08:21.140Z"
     }
   ],
   "transactions": [
@@ -9855,6 +9921,18 @@
       "requestResolvedAt": "",
       "createdAt": "2019-06-27T22:24:04.794Z",
       "modifiedAt": "2020-05-21T04:58:44.494Z"
+    },
+    {
+      "id": "q7SPUmmBM",
+      "uuid": "3cb56375-dd4a-47c3-a28f-2ce0ee462c1a",
+      "amount": 100000,
+      "description": "TEST API",
+      "receiverId": "qywYp6hS0U",
+      "senderId": "t45AiwidW",
+      "privacyLevel": "public",
+      "status": "complete",
+      "createdAt": "2022-12-09T23:03:38.185Z",
+      "modifiedAt": "2022-12-09T23:03:38.185Z"
     }
   ],
   "likes": [
@@ -10431,6 +10509,16 @@
       "isRead": false,
       "createdAt": "2019-10-19T20:50:49.292Z",
       "modifiedAt": "2020-05-21T21:00:50.192Z"
+    },
+    {
+      "id": "oXFaSvcJaL",
+      "uuid": "1d7d070a-0431-4a7c-a129-4c18eea9714b",
+      "userId": "qywYp6hS0U",
+      "transactionId": "q7SPUmmBM",
+      "status": "received",
+      "isRead": false,
+      "createdAt": "2022-12-09T23:03:38.205Z",
+      "modifiedAt": "2022-12-09T23:03:38.205Z"
     }
   ],
   "banktransfers": [

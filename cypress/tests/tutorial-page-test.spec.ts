@@ -16,7 +16,7 @@ const { Android } = require("@material-ui/icons");
 const mainUser = {
   firstName: "Abel",
   lastName: "Fernandez",
-  userName: "Abel1",
+  username: "Abel1",
   password: "abel1",
   bankName: "Mbank",
   routingNumber: "123456789",
@@ -27,7 +27,7 @@ const mainUser = {
 const testUser = {
   firstName: "Alexi",
   lastName: "Laiho",
-  userName: "Alexi1",
+  username: "Alexi1",
   password: "al1",
   bankName: "M",
   routingNumber: "12",
@@ -37,22 +37,6 @@ const testUser = {
   phoneNumber: "11233",
 };
 
-var firstName = mainUser.firstName;
-var lastName = mainUser.lastName;
-var username = mainUser.userName;
-var password = mainUser.password;
-var bankName = mainUser.bankName;
-var shortBankName = testUser.bankName;
-var routingNumber = mainUser.routingNumber;
-var shortRoutingNumber = testUser.routingNumber;
-var accountNumber = mainUser.accountNumber;
-var shortAccountNumber = testUser.accountNumber;
-var longAccountNumber = testUser.accountNumber2;
-var emailAddress = mainUser.emailAddress;
-var wrongEmailAddress = testUser.emailAddress;
-var phoneNumber = mainUser.phoneNumber;
-var shortPhoneNumber = testUser.phoneNumber;
-
 describe("Tutorial page test", () => {
   before(() => {
     signInPage.visitLoginPage();
@@ -61,19 +45,19 @@ describe("Tutorial page test", () => {
   it("Register account", () => {
     signInPage.clickSignUpQuestion();
     signUpPage
-      .fillFirstNameInput(firstName)
-      .fillLastNameInput(lastName)
-      .fillUsernameInput(username)
-      .fillPasswordInput(password)
-      .fillConfirmPasswordInput(password)
+      .fillFirstNameInput(mainUser.firstName)
+      .fillLastNameInput(mainUser.lastName)
+      .fillUsernameInput(mainUser.username)
+      .fillPasswordInput(mainUser.password)
+      .fillConfirmPasswordInput(mainUser.password)
       .clickSignUpButton();
     cy.wait(200);
   });
 
   it("Login", () => {
     signInPage
-      .fillSigninUsernameInput(username)
-      .fillSigninPasswordInput(password)
+      .fillSigninUsernameInput(mainUser.username)
+      .fillSigninPasswordInput(mainUser.password)
       .clickSignInButton();
   });
 
@@ -81,36 +65,49 @@ describe("Tutorial page test", () => {
     getStartedWindow.clickNextButton();
     tutorialWindow
       .dblclickDisabledSaveButton()
-      .placeholderBankNameInput()
+      .assertionPlaceholderInput("bankaccount-bankName-input", "Bank Name")
       .assertionTitle()
-      .assertionEmptyBankNameInput()
-      .fillShortBankNameInput(shortBankName)
+      .assertionEmptyInput("bankaccount-bankName-input", "Enter a bank name")
+      .fillShortBankNameInput(testUser.bankName)
       .assertionShortBankNameInput()
-      .clearBankNameInput()
-      .assertionEmptyBankNameInput()
-      .fillBankNameInput(bankName)
-      .assertionBankNameInput()
-      .placeholderRoutingNumberInput()
-      .clickRoutingNumberInput()
+      .clearInput("bankaccount-bankName-input")
+      .assertionEmptyInput("bankaccount-bankName-input", "Enter a bank name")
+      .fillAndAssertInput(
+        "bankaccount-bankName-input",
+        mainUser.bankName,
+        "Must contain at least 5 characters",
+        "Enter a bank name"
+      )
+      .assertionPlaceholderInput("bankaccount-routingNumber-input", "Routing Number")
+      .clickInput("bankaccount-routingNumber-input")
       .clickTitle()
-      .assertionEmptyRoutingNumberInput()
-      .fillShortRoutingNumberInput(shortRoutingNumber)
+      .assertionEmptyInput("bankaccount-routingNumber-input", "Enter a valid bank routing number")
+      .fillShortRoutingNumberInput(testUser.routingNumber)
       .assertionShortRoutingNumberInput()
-      .clearRoutingNumberInput()
-      .fillRoutingNumberInput(routingNumber)
-      .assertionRoutingNumberInput()
-      .placeholderAccountNumberInput()
-      .clickAccountNumberInput()
+      .clearInput("bankaccount-routingNumber-input")
+      .assertionEmptyInput("bankaccount-routingNumber-input", "Enter a valid bank routing number")
+      .fillAndAssertInput(
+        "bankaccount-routingNumber-input",
+        mainUser.routingNumber,
+        "Enter a valid bank routing number",
+        "Must contain a valid routing number"
+      )
+      .assertionPlaceholderInput("bankaccount-accountNumber-input", "Account Number")
+      .clickInput("bankaccount-accountNumber-input")
       .clickTitle()
-      .assertionEmptyAccountNumberInput()
-      .fillShortAccountNumberInput(shortAccountNumber)
+      .assertionEmptyInput("bankaccount-accountNumber-input", "Enter a valid bank account number")
+      .fillShortAccountNumberInput(testUser.accountNumber)
       .assertionShortAccountNumberInput()
-      .clearAccountNumberInput()
-      .fillLongBAccountNumberInput(longAccountNumber)
+      .clearInput("bankaccount-accountNumber-input")
+      .fillLongBAccountNumberInput(testUser.accountNumber2)
       .assertionLongAccountNumberInput()
-      .clearAccountNumberInput()
-      .fillAccountNumberInput(accountNumber)
-      .assertionAccountNumberInput()
+      .clearInput("bankaccount-accountNumber-input")
+      .fillAndAssertInput(
+        "bankaccount-accountNumber-input",
+        mainUser.accountNumber,
+        "Must contain at least 9 digits",
+        "Must contain no more than 12 digits"
+      )
       .assertionSaveButton()
       .clickSaveButton();
     finishedWindow.clickDoneButton();
@@ -119,44 +116,46 @@ describe("Tutorial page test", () => {
 
   it("Check Main Page", () => {
     homePageHeader.assertionHomePageLogo();
-    homePageSidebar.assertionomePageFullName(firstName).assertionHomePageUsername(username);
+    homePageSidebar
+      .assertionHomePageFullName(mainUser.firstName)
+      .assertionHomePageUsername(mainUser.username);
   });
   it("My Account", () => {
     homePageSidebar.clickMyAccountButton();
     usersettingsPage
       .checkUserSettingsUrl()
-      .assertionFirstNameInput(firstName)
-      .assertionLastNameInput(lastName)
-      .placeholderEmailInput()
-      .clickEmailInput();
-    cy.get('[data-test="user-settings-form"]').click(100, 200);
+      .assertionFirstNameInput(mainUser.firstName)
+      .assertionLastNameInput(mainUser.lastName)
+      .assertionPlaceholderInput("user-settings-email-input", "Email")
+      .clickInput("user-settings-email-input")
+      .clickInput("user-settings-phoneNumber-input");
     usersettingsPage
-      .assertionEmptyEmailInput()
-      .fillWrongEmailInput(wrongEmailAddress)
+      .assertionEmptyInput("user-settings-email-input-helper-text", "Enter an email address")
+      .fillWrongEmailInput(testUser.emailAddress)
       .assertionWrongEmailInput()
-      .clearEmailInput()
-      .fillEmailInput(emailAddress)
-      .placeholderPhoneNumberInput();
-    cy.get('[data-test="user-settings-form"]').click(100, 200);
+      .clearInput("user-settings-email-input")
+      .fillAndAssertInput("user-settings-email-input", mainUser.emailAddress)
+      .assertionPlaceholderInput("user-settings-phoneNumber-input", "Phone Number")
+      .clickInput("user-settings-phoneNumber-input");
     usersettingsPage
-      .assertionEmptyPhoneNumberInput()
-      .fillShortPhoneNumberInput(shortPhoneNumber)
+      .assertionEmptyInput("user-settings-phoneNumber-input-helper-text", "Enter a phone number")
+      .fillShortPhoneNumberInput(testUser.phoneNumber)
       .assertionShortPhoneNumberInput()
-      .clearPhoneNumberInput()
-      .fillPhoneNumberInput(phoneNumber)
+      .clearInput("user-settings-phoneNumber-input")
+      .fillAndAssertInput("user-settings-phoneNumber-input", mainUser.phoneNumber)
       .clickSaveButton();
     cy.get('[data-test="signin-error"]').should("contain", "401");
     //Shouldn't be an error 401
 
     signInPage
-      .fillSigninUsernameInput(username)
-      .fillSigninPasswordInput(password)
+      .fillSigninUsernameInput(mainUser.username)
+      .fillSigninPasswordInput(mainUser.password)
       .clickSignInButton();
     homePageSidebar
       .clickMyAccountButton()
       //it doesn't save email nad phone number
       .clickBankAccountsButton();
-    bankAccountPage.assertionBankList(bankName).clickCreateButton();
+    bankAccountPage.assertionBankList(mainUser.bankName).clickCreateButton();
     createBankAccountPage.checkCreateBankAccountUrl();
   });
 });

@@ -1,48 +1,16 @@
 import Chainable = Cypress.Chainable;
 
 class SignUpPage {
-  assertionFirstNameInput() {
-    this.getFirstNameInput().should("have.value", "Abel");
+  assertionEmptyInput(selector: string, text: string) {
+    this.getSelector(selector).find("p").should("contain", text);
     return this;
   }
-  assertionEmptyFirstNameInput() {
-    this.getFirstNameInputWithHelperText().should("contain", "First Name is required");
+  assertionMatchConfirmPasswordInput() {
+    this.getConfirmPasswordInputWithHelperText().should("contain", "Password does not match");
     return this;
   }
-  assertionShrinkFirstNameInput() {
-    this.getShrinkFirstNameInput().should("have.attr", "data-shrink", "true");
-    return this;
-  }
-  assertionLastNameInput() {
-    this.getLastNameInput().should("have.value", "Fernandez").and("be.visible");
-    return this;
-  }
-  assertionEmptyLastNameInput() {
-    this.getLastNameInputWithHelperText().should("contain", "Last Name is required");
-    return this;
-  }
-  assertionShrinkLastNameInput() {
-    this.getShrinkLastNameInput().should("have.attr", "data-shrink", "true");
-    return this;
-  }
-  assertionUsernameInput() {
-    this.getUsernameInput().should("have.value", "Abel1").and("be.visible");
-    return this;
-  }
-  assertionEmptyUsernameInput() {
-    this.getUsernameInputWithHelperText().should("contain", "Username is required");
-    return this;
-  }
-  assertionShrinkUsernameInput() {
-    this.getShrinkUsernameInput().should("have.attr", "data-shrink", "true");
-    return this;
-  }
-  assertionPasswordInput() {
-    this.getPasswordInput().should("have.value", "abel1").and("be.visible");
-    return this;
-  }
-  assertionEmptyPasswordInput() {
-    this.getPasswordInputWithHelperText().should("contain", "Enter your password");
+  assertionShrinkInput(selector: string) {
+    this.getSelector(selector).children().should("have.attr", "data-shrink", "true");
     return this;
   }
   assertionShortPasswordInput() {
@@ -52,42 +20,13 @@ class SignUpPage {
     );
     return this;
   }
-  assertionShrinkPasswordInput() {
-    this.getShrinkPasswordInput().should("have.attr", "data-shrink", "true");
-    return this;
-  }
-  assertionConfirmPasswordInput() {
-    this.getConfirmPasswordInput().should("have.value", "abel1").and("be.visible");
-    return this;
-  }
-  assertionEmptyConfirmPasswordInput() {
-    this.getConfirmPasswordInputWithHelperText().should("contain", "Confirm your password");
-    return this;
-  }
-  assertionMatchConfirmPasswordInput() {
-    this.getConfirmPasswordInputWithHelperText().should("contain", "Password does not match");
-    return this;
-  }
-  assertionShrinkConfirmPasswordInput() {
-    this.getShrinkConfirmPasswordInput().should("have.attr", "data-shrink", "true");
-    return this;
-  }
   assertionSignUpTitle() {
     this.getSignUpTitle().should("have.text", "Sign Up");
     return this;
   }
-
-  assertionSignUpButton() {
-    this.getSignUpButton().should("be.visible");
-    return this;
-  }
-
   beDisabledSignUpButton() {
     this.getSignUpButton().should("be.disabled");
     return this;
-  }
-  notDisabledSignUpButton() {
-    this.getSignUpButton().should("not.to.be.disabled");
   }
   checkSignUpUrl() {
     cy.url().should("eq", "http://localhost:3000/signup");
@@ -101,48 +40,34 @@ class SignUpPage {
     this.getConfirmPasswordInput().clear();
     return this;
   }
+  clickHaveAnAccount() {
+    this.getHaveAnAccount().click();
+    return this;
+  }
+  clickInput(selector: string) {
+    this.getSelector(selector).click();
+    return this;
+  }
   clickSignUpButton() {
     this.getSignUpButton().click();
     return this;
   }
-  clickFirstNameInput() {
-    this.getFirstNameInput().click();
+  fillAndAssertInput(selector: string, value: string): this {
+    this.getSelector(selector).type(value).find("input").should("have.value", value);
     return this;
   }
-  clickLastNameInput() {
-    this.getLastNameInput().click();
-    return this;
-  }
-  clickUsernameInput() {
-    this.getUsernameInput().click();
-    return this;
-  }
-  clickPasswordInput() {
-    this.getPasswordInput().click();
-    return this;
-  }
-  clickConfirmPasswordInput() {
-    this.getConfirmPasswordInput().click();
-    return this;
-  }
-  clickHaveAnAccount() {
-    this.getHaveAnAccount().click();
+  fillConfirmPasswordInput(password: string): this {
+    this.getConfirmPasswordInput().type(password, { delay: 50 });
     return this;
   }
   fillFirstNameInput(firstName: string): this {
     this.getFirstNameInput().type(firstName, { delay: 50 });
     return this;
   }
-
   fillLastNameInput(lastName: string): this {
     this.getLastNameInput().type(lastName, { delay: 50 });
     return this;
   }
-  fillUsernameInput(username: string): this {
-    this.getUsernameInput().type(username, { delay: 50 });
-    return this;
-  }
-
   fillPasswordInput(password: string): this {
     this.getPasswordInput().type(password, { delay: 50 });
     return this;
@@ -151,49 +76,19 @@ class SignUpPage {
     this.getPasswordInput().type(shortPassword, { delay: 50 });
     return this;
   }
-  fillConfirmPasswordInput(password: string): this {
-    this.getConfirmPasswordInput().type(password, { delay: 50 });
-    return this;
-  }
   fillShortConfirmPasswordInput(password: string): this {
     this.getConfirmPasswordInput().type(password, { delay: 50 });
     return this;
   }
-  private getFirstNameInput(): Chainable<JQuery> {
-    return cy.get('[id="firstName"]');
+  fillUsernameInput(username: string): this {
+    this.getUsernameInput().type(username, { delay: 50 });
+    return this;
   }
-  private getFirstNameInputWithHelperText(): Chainable<JQuery> {
-    return cy.get('[data-test="signup-first-name"]');
+  getSelector(selector: string): Chainable<JQuery> {
+    return cy.get(`[data-test=${selector}]`);
   }
-  private getShrinkFirstNameInput(): Chainable<JQuery> {
-    return cy.get('[id="firstName-label"]');
-  }
-  private getLastNameInput(): Chainable<JQuery> {
-    return cy.get('[id="lastName"]');
-  }
-  private getLastNameInputWithHelperText(): Chainable<JQuery> {
-    return cy.get('[data-test="signup-last-name"]');
-  }
-  private getShrinkLastNameInput(): Chainable<JQuery> {
-    return cy.get('[id="lastName-label"]');
-  }
-  private getUsernameInput(): Chainable<JQuery> {
-    return cy.get('[id="username"]');
-  }
-  private getUsernameInputWithHelperText(): Chainable<JQuery> {
-    return cy.get('[data-test="signup-username"]');
-  }
-  private getShrinkUsernameInput(): Chainable<JQuery> {
-    return cy.get('[id="username-label"]');
-  }
-  private getPasswordInput(): Chainable<JQuery> {
-    return cy.get('[id="password"]');
-  }
-  private getPasswordInputWithHelperText(): Chainable<JQuery> {
-    return cy.get('[data-test="signup-password"]');
-  }
-  private getShrinkPasswordInput(): Chainable<JQuery> {
-    return cy.get('[id="password-label"]');
+  notDisabledSignUpButton() {
+    this.getSignUpButton().should("not.to.be.disabled");
   }
   private getConfirmPasswordInput(): Chainable<JQuery> {
     return cy.get('[id="confirmPassword"]');
@@ -201,8 +96,20 @@ class SignUpPage {
   private getConfirmPasswordInputWithHelperText(): Chainable<JQuery> {
     return cy.get('[data-test="signup-confirmPassword"]');
   }
-  private getShrinkConfirmPasswordInput(): Chainable<JQuery> {
-    return cy.get('[id="confirmPassword-label"]');
+  private getFirstNameInput(): Chainable<JQuery> {
+    return cy.get('[id="firstName"]');
+  }
+  private getHaveAnAccount(): Chainable<JQuery> {
+    return cy.get('[class="MuiGrid-root MuiGrid-item"]');
+  }
+  private getLastNameInput(): Chainable<JQuery> {
+    return cy.get('[id="lastName"]');
+  }
+  private getPasswordInput(): Chainable<JQuery> {
+    return cy.get('[id="password"]');
+  }
+  private getPasswordInputWithHelperText(): Chainable<JQuery> {
+    return cy.get('[data-test="signup-password"]');
   }
   private getSignUpButton(): Chainable<JQuery> {
     return cy.get('[data-test="signup-submit"]');
@@ -210,8 +117,8 @@ class SignUpPage {
   private getSignUpTitle(): Chainable<JQuery> {
     return cy.get('[data-test="signup-title"]');
   }
-  private getHaveAnAccount(): Chainable<JQuery> {
-    return cy.get('[class="MuiGrid-root MuiGrid-item"]');
+  private getUsernameInput(): Chainable<JQuery> {
+    return cy.get('[id="username"]');
   }
 }
 export default new SignUpPage();

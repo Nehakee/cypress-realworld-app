@@ -4,14 +4,6 @@ class SignInPage {
   visitLoginPage() {
     cy.visit("http://localhost:3000");
   }
-  assertionSignUpTitle() {
-    this.getSignInTitle().should("exist").and("contain", "Sign in");
-    return this;
-  }
-  assertionUsernameInput() {
-    this.getUsernameInput().should("be.visible");
-    return this;
-  }
   assertionPasswordInput() {
     this.getPasswordInput().should("be.visible");
     return this;
@@ -28,36 +20,33 @@ class SignInPage {
     this.getSignUpQuestion().should("be.visible");
     return this;
   }
-  checkSignInUrl() {
-    cy.url().should("eq", "http://localhost:3000/signin");
+  assertionSignUpTitle() {
+    this.getSignInTitle().should("exist").and("contain", "Sign in");
     return this;
   }
-
-  clickSignUpQuestion() {
-    this.getSignUpQuestion().click();
+  assertionUsernameInput() {
+    this.getUsernameInput().should("be.visible");
+    return this;
+  }
+  checkSignInUrl() {
+    cy.url().should("eq", "http://localhost:3000/signin");
     return this;
   }
   clickSignInButton() {
     this.getSignInButton().click();
     return this;
   }
-  fillSigninUsernameInput(username: string): this {
-    this.getUsernameInput().type(username, { delay: 50 });
+  clickSignUpQuestion() {
+    this.getSignUpQuestion().click();
     return this;
   }
   fillSigninPasswordInput(username: string): this {
     this.getPasswordInput().type(username, { delay: 50 });
     return this;
   }
-
-  private getSignUpQuestion(): Chainable<JQuery> {
-    return cy.get('[data-test="signup"]');
-  }
-  private getSignInTitle(): Chainable<JQuery> {
-    return cy.get('[class="MuiTypography-root MuiTypography-h5"]');
-  }
-  private getUsernameInput(): Chainable<JQuery> {
-    return cy.get('[id="username"]');
+  fillSigninUsernameInput(username: string): this {
+    this.getUsernameInput().type(username, { delay: 50 });
+    return this;
   }
   private getPasswordInput(): Chainable<JQuery> {
     return cy.get('[id="password"]');
@@ -67,6 +56,15 @@ class SignInPage {
   }
   private getSignInButton(): Chainable<JQuery> {
     return cy.get('[class="MuiButton-label"]');
+  }
+  private getSignInTitle(): Chainable<JQuery> {
+    return cy.get('[class="MuiTypography-root MuiTypography-h5"]');
+  }
+  private getSignUpQuestion(): Chainable<JQuery> {
+    return cy.get('[data-test="signup"]');
+  }
+  private getUsernameInput(): Chainable<JQuery> {
+    return cy.get('[id="username"]');
   }
 }
 export default new SignInPage();

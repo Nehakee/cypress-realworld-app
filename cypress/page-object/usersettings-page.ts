@@ -1,12 +1,8 @@
 import Chainable = Cypress.Chainable;
 
 class UserSettingsPage {
-  assertionEmptyEmailInput() {
-    this.getEmailInputError().should("contain", "Enter an email address");
-    return this;
-  }
-  assertionWrongEmailInput() {
-    this.getEmailInputError().should("contain", "Must contain a valid email address");
+  assertionEmptyInput(selector: string, text: string) {
+    this.getIdSelector(selector).should("contain", text);
     return this;
   }
   assertionFirstNameInput(firstName: String): this {
@@ -17,58 +13,51 @@ class UserSettingsPage {
     this.getLastNameInput().should("have.value", lastName, { delay: 50 });
     return this;
   }
-  assertionEmptyPhoneNumberInput() {
-    this.getPhoneNumberInputError().should("have.text", "Enter a phone number");
+  assertionPlaceholderInput(selector: string, text: string) {
+    this.getSelector(selector).should("have.attr", "placeholder", text);
     return this;
   }
   assertionShortPhoneNumberInput() {
     this.getPhoneNumberInputError().should("have.text", "Phone number is not valid");
     return this;
   }
-
+  assertionWrongEmailInput() {
+    this.getEmailInputError().should("contain", "Must contain a valid email address");
+    return this;
+  }
   checkUserSettingsUrl() {
     cy.url().should("eq", "http://localhost:3000/user/settings");
     return this;
   }
-  clickEmailInput() {
-    this.getEmailInput().click();
+  clearInput(selector: string) {
+    this.getSelector(selector).clear();
+    return this;
+  }
+  clickInput(selector: string) {
+    this.getSelector(selector).click();
     return this;
   }
   clickSaveButton() {
     this.getSaveButton().click();
     return this;
   }
-  clearEmailInput() {
-    this.getEmailInput().clear();
-    return this;
-  }
-  clearPhoneNumberInput() {
-    this.getPhoneNumberInput().clear();
-    return this;
-  }
-  fillEmailInput(emailAddress: string): this {
-    this.getEmailInput().type(emailAddress, { delay: 50 });
-    return this;
-  }
-  fillWrongEmailInput(wrongEmailAddress: string): this {
-    this.getEmailInput().type(wrongEmailAddress, { delay: 50 });
-    return this;
-  }
-  fillPhoneNumberInput(phoneNumber: string): this {
-    this.getPhoneNumberInput().type(phoneNumber, { delay: 50 });
+  fillAndAssertInput(selector: string, value: string): this {
+    this.getSelector(selector).type(value).should("have.value", value);
     return this;
   }
   fillShortPhoneNumberInput(shortPhoneNumber: string): this {
     this.getPhoneNumberInput().type(shortPhoneNumber, { delay: 50 });
     return this;
   }
-  placeholderEmailInput() {
-    this.getEmailInput().should("have.attr", "placeholder", "Email");
+  fillWrongEmailInput(wrongEmailAddress: string): this {
+    this.getEmailInput().type(wrongEmailAddress, { delay: 50 });
     return this;
   }
-  placeholderPhoneNumberInput() {
-    this.getPhoneNumberInput().should("have.attr", "placeholder", "Phone Number");
-    return this;
+  getSelector(selector: string): Chainable<JQuery> {
+    return cy.get(`[data-test=${selector}]`);
+  }
+  getIdSelector(selector: string): Chainable<JQuery> {
+    return cy.get(`[id=${selector}]`);
   }
   private getEmailInput(): Chainable<JQuery> {
     return cy.get('[data-test="user-settings-email-input"]');
